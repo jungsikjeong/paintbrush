@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const Canvas = styled.canvas`
@@ -55,22 +55,33 @@ const Controls = styled.div`
   }
 `;
 
-const Board = () => {
+const Board = ({
+  onMouseMove,
+  onMouseDown,
+  position,
+  stopPainting,
+  onMouseUp,
+}) => {
   return (
     <>
-      <Canvas></Canvas>
+      <Canvas
+        onMouseMove={onMouseMove}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onMouseLeave={stopPainting}
+      ></Canvas>
       <Controls>
-        <div class="controls__range">
-          <input
+        <div className="controls__range">
+          {/* <input
             type="range"
             id="jsRange"
             min="0.1"
             max="5"
             value="2.5"
             step="0.1"
-          />
+          /> */}
         </div>
-        <div class="controls__btns">
+        <div className="controls__btns">
           <button id="jsMode">Fill</button>
           <button id="jsSave">Save</button>
         </div>

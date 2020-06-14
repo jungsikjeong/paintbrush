@@ -1,8 +1,8 @@
 import React from 'react';
-import Canvas from '../components/Canvas/Canvas';
+import BoardContainer from '../containers/Board/BoardContainer';
 
 const DrawingPage = () => {
-  return <Canvas />;
+  return <BoardContainer />;
 };
 
 export default DrawingPage;
