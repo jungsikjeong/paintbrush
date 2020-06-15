@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import Colors from './Colors';
 
 const Canvas = styled.canvas`
   width: 700px;
@@ -55,19 +56,55 @@ const Controls = styled.div`
   }
 `;
 
-const Board = ({
-  onMouseMove,
-  onMouseDown,
-  position,
-  stopPainting,
-  onMouseUp,
-}) => {
+const Board = () => {
+  let painting = false; // 마우스를 클릭했을때 true, 마우스를 뗏을때 false
+  let ctx;
+
+  const canvasRef = useRef(null);
+
+  const startPainting = () => {
+    painting = true;
+  };
+
+  const stopPainting = () => {
+    painting = false;
+  };
+
+  const onMouseMove = ({ nativeEvent }) => {
+    const x = nativeEvent.offsetX;
+    const y = nativeEvent.offsetY;
+
+    if (!painting) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+  };
+
+  const handleColorClick = (e) => {
+    const color = e.target.style.backgroundColor;
+    ctx.strokeStyle = color;
+  };
+
+  useEffect(() => {
+    // ...drawing using the ctx
+    ctx = canvasRef.current.getContext('2d');
+
+    ctx.strokeStyle = '#2c2c2c';
+    ctx.lineWidth = 2.5;
+  }, [canvasRef]);
+
   return (
     <>
       <Canvas
+        ref={canvasRef}
+        width={700}
+        height={700}
         onMouseMove={onMouseMove}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
+        onMouseDown={startPainting}
+        onMouseUp={stopPainting}
         onMouseLeave={stopPainting}
       ></Canvas>
       <Controls>
@@ -85,45 +122,7 @@ const Board = ({
           <button id="jsMode">Fill</button>
           <button id="jsSave">Save</button>
         </div>
-
-        <div className="controls__colors">
-          <div
-            className="controls__color"
-            style={{ backgroundColor: '#2c2c2c' }}
-          ></div>
-          <div
-            className="controls__color"
-            style={{ backgroundColor: 'white' }}
-          ></div>
-          <div
-            className="controls__color"
-            style={{ backgroundColor: '#FF3B30' }}
-          ></div>
-          <div
-            className="controls__color"
-            style={{ backgroundColor: '#FF9500' }}
-          ></div>
-          <div
-            className="controls__color"
-            style={{ backgroundColor: '#FFCC00' }}
-          ></div>
-          <div
-            className="controls__color"
-            style={{ backgroundColor: '#4CD963' }}
-          ></div>
-          <div
-            className="controls__color"
-            style={{ backgroundColor: '#5AC8FA' }}
-          ></div>
-          <div
-            className="controls__color"
-            style={{ backgroundColor: '#0579FF' }}
-          ></div>
-          <div
-            className="controls__color"
-            style={{ backgroundColor: '#5856D6' }}
-          ></div>
-        </div>
+        <Colors handleColorClick={handleColorClick} />
       </Controls>
     </>
   );
