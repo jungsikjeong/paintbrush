@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Colors from './Colors';
 
@@ -88,6 +88,11 @@ const Board = () => {
     ctx.strokeStyle = color;
   };
 
+  const handleRangeChange = (e) => {
+    const size = event.target.value;
+    ctx.lineWidth = size;
+  };
+
   useEffect(() => {
     // ...drawing using the ctx
     ctx = canvasRef.current.getContext('2d');
@@ -109,14 +114,14 @@ const Board = () => {
       ></Canvas>
       <Controls>
         <div className="controls__range">
-          {/* <input
+          <input
             type="range"
-            id="jsRange"
             min="0.1"
             max="5"
-            value="2.5"
+            defaultValue={'2.5'}
+            onChange={handleRangeChange}
             step="0.1"
-          /> */}
+          />
         </div>
         <div className="controls__btns">
           <button id="jsMode">Fill</button>
