@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Colors from './Colors';
+import BoardButton from './BoardButton';
 
 const Canvas = styled.canvas`
   width: 700px;
@@ -31,43 +32,20 @@ const Controls = styled.div`
         0 1px 3px rgba(0, 0, 0, 0.08);
     }
   }
-
-  .controls__btns {
-    margin-bottom: 30px;
-    button {
-      all: unset;
-      cursor: pointer;
-      background-color: white;
-      padding: 5px 0px;
-      width: 80px;
-      text-align: center;
-      border-radius: 5px;
-      box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11),
-        0 1px 3px rgba(0, 0, 0, 0.08);
-      border: 2px solid rgba(0, 0, 0, 0.2);
-      color: rgba(0, 0, 0, 0.7);
-      text-transform: uppercase;
-      font-weight: 800;
-      font-size: 12px;
-    }
-    button:active {
-      transform: scale(0.98);
-    }
-  }
 `;
 
 const Board = () => {
-  let painting = false; // 마우스를 클릭했을때 true, 마우스를 뗏을때 false
+  const [painting, setPainting] = useState(false); // 마우스를 클릭했을때 true, 마우스를 뗏을때 false
   let ctx;
 
   const canvasRef = useRef(null);
 
   const startPainting = () => {
-    painting = true;
+    setPainting(true);
   };
 
   const stopPainting = () => {
-    painting = false;
+    setPainting(false);
   };
 
   const onMouseMove = ({ nativeEvent }) => {
@@ -123,10 +101,7 @@ const Board = () => {
             step="0.1"
           />
         </div>
-        <div className="controls__btns">
-          <button id="jsMode">Fill</button>
-          <button id="jsSave">Save</button>
-        </div>
+        <BoardButton />
         <Colors handleColorClick={handleColorClick} />
       </Controls>
     </>
