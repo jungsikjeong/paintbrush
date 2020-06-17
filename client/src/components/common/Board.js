@@ -41,9 +41,9 @@ const Board = () => {
   const CANVAS_SIZE = 700;
 
   let painting = false;
-  let ctx;
 
-  const canvasRef = useRef(null);
+  const canvas = useRef(null);
+  const ctx = useRef(null);
 
   const startPainting = () => {
     painting = true;
@@ -56,61 +56,62 @@ const Board = () => {
   const onMouseMove = ({ nativeEvent }) => {
     const x = nativeEvent.offsetX;
     const y = nativeEvent.offsetY;
+    if (!ctx.current) return;
 
     if (!painting) {
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      console.log(painting);
+      ctx.current.beginPath();
+      ctx.current.moveTo(x, y);
     } else {
-      ctx.lineTo(x, y);
-      ctx.stroke();
-      console.log(painting);
+      ctx.current.lineTo(x, y);
+      ctx.current.stroke();
     }
   };
 
   const handleColorClick = (e) => {
     setColor(e.target.style.backgroundColor);
-    console.log(color);
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
+
+    ctx.current.strokeStyle = e.target.style.backgroundColor;
+    ctx.current.fillStyle = e.target.style.backgroundColor;
   };
 
   const handleRangeChange = (e) => {
-    const size = event.target.value;
-    ctx.lineWidth = size;
+    const size = e.target.value;
+    ctx.current.lineWidth = size;
   };
 
   // true면 fill, false면 paint
   const handleModeClick = () => {
     setFilling(!filling);
+    console.log(filling);
   };
 
   const handleCanvasClick = () => {
     if (filling) {
-      ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+      ctx.current.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     }
   };
 
   useEffect(() => {
     // ...drawing using the ctx
-    ctx = canvasRef.current.getContext('2d');
-
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
-    ctx.lineWidth = 2.5;
-  }, [canvasRef]);
+    if (canvas.current) {
+      ctx.current = canvas.current.getContext('2d');
+      ctx.current.strokeStyle = color;
+      ctx.current.fillStyle = color;
+      ctx.current.lineWidth = 2.5;
+    }
+  }, []);
 
   return (
     <>
       <Canvas
-        ref={canvasRef}
+        ref={canvas}
         width={CANVAS_SIZE}
         height={CANVAS_SIZE}
         onMouseMove={onMouseMove}
         onMouseDown={startPainting}
         onMouseUp={stopPainting}
         onMouseLeave={stopPainting}
-        handleCanvasClick={handleCanvasClick}
+        onClick={handleCanvasClick}
       ></Canvas>
       <Controls>
         <div className="controls__range">
