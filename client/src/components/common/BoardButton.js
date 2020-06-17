@@ -23,13 +23,7 @@ const ButtonBlock = styled.div`
   }
 `;
 
-const BoardButton = () => {
-  const [filling, setFilling] = useState(false);
-
-  const handleModeClick = () => {
-    setFilling(!filling);
-  };
-
+const BoardButton = ({ handleModeClick, filling }) => {
   return (
     <ButtonBlock>
       {filling ? (

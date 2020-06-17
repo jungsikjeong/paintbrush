@@ -35,17 +35,22 @@ const Controls = styled.div`
 `;
 
 const Board = () => {
-  const [painting, setPainting] = useState(false); // 마우스를 클릭했을때 true, 마우스를 뗏을때 false
+  const [filling, setFilling] = useState(false);
+  const [color, setColor] = useState('#2c2c2c');
+
+  const CANVAS_SIZE = 700;
+
+  let painting = false;
   let ctx;
 
   const canvasRef = useRef(null);
 
   const startPainting = () => {
-    setPainting(true);
+    painting = true;
   };
 
   const stopPainting = () => {
-    setPainting(false);
+    painting = false;
   };
 
   const onMouseMove = ({ nativeEvent }) => {
@@ -55,15 +60,19 @@ const Board = () => {
     if (!painting) {
       ctx.beginPath();
       ctx.moveTo(x, y);
+      console.log(painting);
     } else {
       ctx.lineTo(x, y);
       ctx.stroke();
+      console.log(painting);
     }
   };
 
   const handleColorClick = (e) => {
-    const color = e.target.style.backgroundColor;
+    setColor(e.target.style.backgroundColor);
+    console.log(color);
     ctx.strokeStyle = color;
+    ctx.fillStyle = color;
   };
 
   const handleRangeChange = (e) => {
@@ -71,11 +80,23 @@ const Board = () => {
     ctx.lineWidth = size;
   };
 
+  // true면 fill, false면 paint
+  const handleModeClick = () => {
+    setFilling(!filling);
+  };
+
+  const handleCanvasClick = () => {
+    if (filling) {
+      ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    }
+  };
+
   useEffect(() => {
     // ...drawing using the ctx
     ctx = canvasRef.current.getContext('2d');
 
-    ctx.strokeStyle = '#2c2c2c';
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
     ctx.lineWidth = 2.5;
   }, [canvasRef]);
 
@@ -83,12 +104,13 @@ const Board = () => {
     <>
       <Canvas
         ref={canvasRef}
-        width={700}
-        height={700}
+        width={CANVAS_SIZE}
+        height={CANVAS_SIZE}
         onMouseMove={onMouseMove}
         onMouseDown={startPainting}
         onMouseUp={stopPainting}
         onMouseLeave={stopPainting}
+        handleCanvasClick={handleCanvasClick}
       ></Canvas>
       <Controls>
         <div className="controls__range">
@@ -101,7 +123,7 @@ const Board = () => {
             step="0.1"
           />
         </div>
-        <BoardButton />
+        <BoardButton handleModeClick={handleModeClick} filling={filling} />
         <Colors handleColorClick={handleColorClick} />
       </Controls>
     </>
