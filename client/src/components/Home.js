@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Clock from './common/Clock';
+import Logo from './Logo/Logo';
 
 const fadeIn = keyframes` {
     from {
@@ -19,13 +20,14 @@ const HomeBlock = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: url(https://source.unsplash.com/random/1920x1080);
+  /* background: url(https://source.unsplash.com/random/1920x1080); */
   background-size: cover;
 `;
 
 const Main = () => {
   return (
     <HomeBlock>
+      <Logo />
       <Clock />
     </HomeBlock>
   );

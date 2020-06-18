@@ -1,7 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Colors from './Colors';
+import { Link } from 'react-router-dom';
 import BoardButton from './BoardButton';
+
+const CanvasBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0px;
+`;
 
 const Canvas = styled.canvas`
   width: 700px;
@@ -12,10 +20,10 @@ const Canvas = styled.canvas`
 `;
 
 const Controls = styled.div`
-  margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 50px;
 
   .controls__range {
     margin-bottom: 30px;
@@ -33,6 +41,8 @@ const Controls = styled.div`
     }
   }
 `;
+
+const SLink = styled(Link)``;
 
 const Board = () => {
   const [filling, setFilling] = useState(false);
@@ -82,7 +92,7 @@ const Board = () => {
   // true면 fill, false면 paint
   const handleModeClick = () => {
     setFilling(!filling);
-    console.log(filling);
+    console.log(ctx.current.fillStyle);
   };
 
   const handleCanvasClick = () => {
@@ -91,28 +101,48 @@ const Board = () => {
     }
   };
 
+  const keydownHandler = () => {
+    ctx.current.restore();
+  };
+
+  const onContextMenu = (e) => {
+    e.preventDefault();
+  };
+
+  const handleSaveClick = () => {
+    const image = canvas.current.toDataURL();
+    SLink.href = image;
+    SLink.download = 'PaintJs[EXPORT]🎨';
+    // console.log(SLink);
+    SLink.click();
+  };
+
   useEffect(() => {
     // ...drawing using the ctx
     if (canvas.current) {
       ctx.current = canvas.current.getContext('2d');
+      ctx.current.fillStyle = 'white';
+      ctx.current.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
       ctx.current.strokeStyle = color;
-      ctx.current.fillStyle = color;
       ctx.current.lineWidth = 2.5;
     }
   }, []);
 
   return (
     <>
-      <Canvas
-        ref={canvas}
-        width={CANVAS_SIZE}
-        height={CANVAS_SIZE}
-        onMouseMove={onMouseMove}
-        onMouseDown={startPainting}
-        onMouseUp={stopPainting}
-        onMouseLeave={stopPainting}
-        onClick={handleCanvasClick}
-      ></Canvas>
+      <CanvasBlock>
+        <Canvas
+          ref={canvas}
+          width={CANVAS_SIZE}
+          height={CANVAS_SIZE}
+          onMouseMove={onMouseMove}
+          onMouseDown={startPainting}
+          onMouseUp={stopPainting}
+          onMouseLeave={stopPainting}
+          onClick={handleCanvasClick}
+          onContextMenu={onContextMenu}
+        ></Canvas>
+      </CanvasBlock>
       <Controls>
         <div className="controls__range">
           <input
@@ -124,7 +154,11 @@ const Board = () => {
             step="0.1"
           />
         </div>
-        <BoardButton handleModeClick={handleModeClick} filling={filling} />
+        <BoardButton
+          handleModeClick={handleModeClick}
+          filling={filling}
+          handleSaveClick={handleSaveClick}
+        />
         <Colors handleColorClick={handleColorClick} />
       </Controls>
     </>

@@ -1,7 +1,9 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import Button from './Button';
+import React, { useState } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import Responsive from './Responsive';
+import Button from './Button';
+import { Link } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa';
 
 const infoFrame = keyframes`
   0% {
@@ -17,9 +19,10 @@ const infoFrame = keyframes`
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
+  /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08); */
 `;
 
-const HeaderWrapper = styled(Responsive)`
+const Wrapper = styled(Responsive)`
   height: 4rem;
   display: flex;
   align-items: center;
@@ -40,6 +43,41 @@ const HeaderWrapper = styled(Responsive)`
   }
 `;
 
+const SLink = styled(Link)`
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
+const InfoLink = styled(Link)`
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  background-color: transparent;
+  color: rgb(51, 51, 51);
+  padding: 0px 36px 0px 16px;
+  :hover {
+    background: #7095b3;
+  }
+`;
+
+const LogoutBtn = styled(Button)`
+  display: flex;
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  color: rgb(51, 51, 51);
+  font-size: 14px;
+  font-weight: unset;
+  padding: 0px 36px 0px 16px;
+  :hover {
+    background: #7095b3;
+  }
+`;
+
 const LoginBtn = styled(Button)`
   border: 1px solid skyblue;
   background-color: rgba(0, 0, 0, 0);
@@ -52,16 +90,118 @@ const LoginBtn = styled(Button)`
   }
 `;
 
-const Header = () => {
+const Spacer = styled.div`
+  height: 4rem;
+`;
+
+const UserInfo = styled.div`
+  color: white;
+  font-weight: 600;
+  margin-right: 1rem;
+  cursor: pointer;
+`;
+const SubInfoBlock = styled.div`
+  display: block;
+  position: absolute;
+  top: -59px;
+  right: 122px;
+  margin: 110px 0px 0px;
+  font-size: 14px;
+  letter-spacing: -1px;
+  animation: 0.3s ease 0s 1 normal forwards running ${infoFrame};
+`;
+
+const SubInfoWrapper = styled.div`
+  width: 222px;
+  border-radius: 10px;
+  background-color: rgb(186, 224, 255);
+  box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 15px 2px;
+
+  .userInfo {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    background-color: transparent;
+    border: 10px;
+    padding: 10px;
+    border-bottom: 1px solid rgb(87, 138, 179);
+
+    .column img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .column:last-child {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+    }
+    .column .userName {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .column .userEmail {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  }
+`;
+
+const Header = ({ user, onToggle, toggle, onLogout }) => {
   return (
-    <HeaderBlock>
-      <HeaderWrapper>
-        <div className="logo" />
-        <div className="right">
-          <LoginBtn>로그인</LoginBtn>
-        </div>
-      </HeaderWrapper>
-    </HeaderBlock>
+    <>
+      <HeaderBlock>
+        <Wrapper>
+          <div className="logo" />
+          {/* {user ? (
+            <div className="right">
+              <FaUserCircle
+                size="30"
+                color="#4dabf7"
+                className="userLogo"
+                onClick={() => onToggle()}
+              />
+              {toggle && (
+                <SubInfoBlock>
+                  <SubInfoWrapper>
+                    <div className="userInfo">
+                      <div className="column">
+                        <img
+                          src="https://nomad-hackathon-2020.s3.ap-northeast-2.amazonaws.com/default_image.png"
+                          alt="avatar"
+                        />
+                      </div>
+                      <div className="column">
+                        <span className="userName">{user.name}</span>
+                        <span className="userEmail">{user.email}</span>
+                      </div>
+                    </div>
+                    <InfoLink to="/write" className="infoLink">
+                      Write a to do
+                    </InfoLink>
+                    <InfoLink to="/profile" className="infoLink">
+                      Profile
+                    </InfoLink>
+                    <InfoLink to="/postList" className="infoLink">
+                      Others
+                    </InfoLink>
+                    <LogoutBtn onClick={onLogout}>Log Out</LogoutBtn>
+                  </SubInfoWrapper>
+                </SubInfoBlock>
+              )}
+            </div>
+          ) : ( */}
+          <div className="right">
+            <SLink to="/login">
+              {/* <FaUserCircle size="24" color="#3498db" /> */}
+              <LoginBtn>로그인</LoginBtn>
+            </SLink>
+          </div>
+          {/* )} */}
+        </Wrapper>
+      </HeaderBlock>
+      <Spacer />
+    </>
   );
 };
 
