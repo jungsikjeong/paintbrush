@@ -55,6 +55,9 @@ const Board = () => {
   const canvas = useRef(null);
   const ctx = useRef(null);
 
+  const CopyCanvas = useRef(null);
+  const CopyCtx = useRef(null);
+
   const startPainting = () => {
     painting = true;
   };
@@ -92,7 +95,6 @@ const Board = () => {
   // true면 fill, false면 paint
   const handleModeClick = () => {
     setFilling(!filling);
-    console.log(ctx.current.fillStyle);
   };
 
   const handleCanvasClick = () => {
@@ -110,11 +112,19 @@ const Board = () => {
   };
 
   const handleSaveClick = () => {
-    const image = canvas.current.toDataURL();
-    SLink.href = image;
-    SLink.download = 'PaintJs[EXPORT]🎨';
-    // console.log(SLink);
-    SLink.click();
+    const imageData = canvas.current.toDataURL();
+    const image = new Image(); // 이미지 객체 생성
+    image.onload = () => {
+      // 이미지가 로드되면 작동
+      // ctx.current.drawImage(image, 0, 0); //복사할 캔버스의 컨텍스트를 가져와 drawImage를 호출해 다시 그려준다.
+      image.src = imageData;
+    };
+    console.log(image.src);
+    // const image = canvas.current.toDataURL();
+    // SLink.href = image;
+    // SLink.download = 'PaintJs[EXPORT]🎨';
+    // // console.log(SLink);
+    // SLink.click();
   };
 
   useEffect(() => {
