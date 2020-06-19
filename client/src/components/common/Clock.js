@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Date from 'react-live-clock';
 
@@ -36,15 +36,24 @@ const CurTime = styled(Date)`
 `;
 
 const Clock = () => {
+  const [timer, setTimer] = useState(true);
+
+  // 메모리 누수방지
+  useEffect(() => {
+    return () => setTimer(false);
+  }, []);
+
   return (
     <ClockBlock>
-      <ClockWrapper>
-        <CurDate format={'YYYY / M / D'} ticking={true} />
+      {timer && (
+        <ClockWrapper>
+          <CurDate format={'YYYY / M / D'} ticking={true} />
 
-        <CurDay format={'dddd'} />
+          <CurDay format={'dddd'} />
 
-        <CurTime format={'hh:mm A'} ticking={true} />
-      </ClockWrapper>
+          <CurTime format={'hh:mm A'} ticking={true} />
+        </ClockWrapper>
+      )}
     </ClockBlock>
   );
 };

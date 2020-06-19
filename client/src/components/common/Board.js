@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Colors from './Colors';
 import { Link } from 'react-router-dom';
 import BoardButton from './BoardButton';
+import { useDispatch } from 'react-redux';
+import { canvasCopy } from '../../modules/canvas';
 
 const CanvasBlock = styled.div`
   display: flex;
@@ -47,6 +49,7 @@ const SLink = styled(Link)``;
 const Board = () => {
   const [filling, setFilling] = useState(false);
   const [color, setColor] = useState('#2c2c2c');
+  const dispatch = useDispatch();
 
   const CANVAS_SIZE = 700;
 
@@ -114,12 +117,14 @@ const Board = () => {
   const handleSaveClick = () => {
     const imageData = canvas.current.toDataURL();
     const image = new Image(); // 이미지 객체 생성
-    image.onload = () => {
-      // 이미지가 로드되면 작동
-      // ctx.current.drawImage(image, 0, 0); //복사할 캔버스의 컨텍스트를 가져와 drawImage를 호출해 다시 그려준다.
-      image.src = imageData;
-    };
-    console.log(image.src);
+    // image.onload = () => {
+    //   // 이미지가 로드되면 작동
+    //   ctx.current.drawImage(image, 0, 0); //복사할 캔버스의 컨텍스트를 가져와 drawImage를 호출해 다시 그려준다.
+    // };
+    image.src = imageData;
+    const imageSrc = image.src;
+    dispatch(canvasCopy({ imageSrc }));
+    console.log(imageSrc);
     // const image = canvas.current.toDataURL();
     // SLink.href = image;
     // SLink.download = 'PaintJs[EXPORT]🎨';

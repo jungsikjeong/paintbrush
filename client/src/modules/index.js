@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import post from './post';
+import { all } from 'redux-saga/effects';
+import canvas from './canvas';
 
 const rootReducer = combineReducers({
-  post,
+  canvas,
 });
 
 export function* rootSaga() {
