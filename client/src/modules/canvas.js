@@ -7,7 +7,7 @@ const CANVAS_COPY = 'canvas/CANVAS_COPY';
 // const CANVAS_COPY_SUCCESS = 'canvas/CANVAS_COPY_SUCCESS';
 // const CANVAS_COPY_FAILURE = 'canvas/CANVAS_COPY_FAILURE';
 
-export const canvasCopy = createAction(CANVAS_COPY, ({ copyCanvas }) => ({
+export const canvasCopy = createAction(CANVAS_COPY, (copyCanvas) => ({
   copyCanvas,
 }));
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Clock from './common/Clock';
-import Logo from './Logo/Logo';
+import Main from './Main/Main';
 
 const fadeIn = keyframes` {
     from {
@@ -24,13 +24,13 @@ const HomeBlock = styled.div`
   background-size: cover;
 `;
 
-const Main = () => {
+const Home = () => {
   return (
     <HomeBlock>
-      <Logo />
+      <Main />
       <Clock />
     </HomeBlock>
   );
 };
 
-export default Main;
+export default Home;

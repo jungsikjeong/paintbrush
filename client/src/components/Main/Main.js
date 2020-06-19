@@ -1,8 +1,8 @@
 import React from 'react';
-import './Logo.css';
+import './Main.css';
 import { Link } from 'react-router-dom';
 
-const Logo = () => {
+const Main = () => {
   return (
     <Link to="/postList">
       <div className="block">
@@ -25,4 +25,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default Main;

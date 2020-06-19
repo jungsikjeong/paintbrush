@@ -115,21 +115,16 @@ const Board = () => {
   };
 
   const handleSaveClick = () => {
-    const imageData = canvas.current.toDataURL();
-    const image = new Image(); // 이미지 객체 생성
+    const image = canvas.current.toDataURL();
+    // const newImage = new Image(); // 이미지 객체 생성
     // image.onload = () => {
     //   // 이미지가 로드되면 작동
     //   ctx.current.drawImage(image, 0, 0); //복사할 캔버스의 컨텍스트를 가져와 drawImage를 호출해 다시 그려준다.
     // };
-    image.src = imageData;
-    const imageSrc = image.src;
-    dispatch(canvasCopy({ imageSrc }));
-    console.log(imageSrc);
-    // const image = canvas.current.toDataURL();
-    // SLink.href = image;
-    // SLink.download = 'PaintJs[EXPORT]🎨';
-    // // console.log(SLink);
-    // SLink.click();
+    // newImage.src = image; // image데이터를 newImage.src에 저장
+    dispatch(canvasCopy(image));
+    console.log('image:', image);
+    console.log(canvasCopy({ image }));
   };
 
   useEffect(() => {
