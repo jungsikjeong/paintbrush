@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Colors from './Colors';
 import { Link } from 'react-router-dom';
-import BoardButton from './BoardButton';
 import { useDispatch } from 'react-redux';
 import { canvasCopy } from '../../modules/canvas';
+import BoardButtonContainer from '../../containers/boardButton/BoardButtonContainer';
 
 const CanvasBlock = styled.div`
   display: flex;
@@ -57,9 +57,6 @@ const Board = () => {
 
   const canvas = useRef(null);
   const ctx = useRef(null);
-
-  const CopyCanvas = useRef(null);
-  const CopyCtx = useRef(null);
 
   const startPainting = () => {
     painting = true;
@@ -115,20 +112,11 @@ const Board = () => {
   };
 
   const handleSaveClick = () => {
-    const image = canvas.current.toDataURL();
-    // const newImage = new Image(); // 이미지 객체 생성
-    // image.onload = () => {
-    //   // 이미지가 로드되면 작동
-    //   ctx.current.drawImage(image, 0, 0); //복사할 캔버스의 컨텍스트를 가져와 drawImage를 호출해 다시 그려준다.
-    // };
-    // newImage.src = image; // image데이터를 newImage.src에 저장
-    dispatch(canvasCopy(image));
-    console.log('image:', image);
-    console.log(canvasCopy({ image }));
+    const imageData = canvas.current.toDataURL();
+    dispatch(canvasCopy(imageData));
   };
 
   useEffect(() => {
-    // ...drawing using the ctx
     if (canvas.current) {
       ctx.current = canvas.current.getContext('2d');
       ctx.current.fillStyle = 'white';
@@ -164,7 +152,7 @@ const Board = () => {
             step="0.1"
           />
         </div>
-        <BoardButton
+        <BoardButtonContainer
           handleModeClick={handleModeClick}
           filling={filling}
           handleSaveClick={handleSaveClick}

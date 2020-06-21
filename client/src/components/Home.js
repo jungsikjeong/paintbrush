@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Clock from './common/Clock';
-import Main from './Main/Main';
+import Main from './main/Main';
 
 const fadeIn = keyframes` {
     from {
