@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -31,18 +31,13 @@ const Svg = styled.svg`
   background: #fff;
   margin-bottom: 40px;
   align-self: center;
-  transform-style: preserve-3d;
-
-  .eyes {
-    transform-origin: 50% 50% -40px;
-  }
 `;
 
 const AuthTemplate = ({ children }) => {
   return (
     <AuthTemplateBlock>
       <AuthTemplateBox>
-        <Svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <Svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M0,150 C0,65 120,65 120,150"
             fill="#e0a243"
@@ -125,7 +120,6 @@ const AuthTemplate = ({ children }) => {
             fill="#fff"
           />
         </Svg>
-
         {children}
       </AuthTemplateBox>
     </AuthTemplateBlock>

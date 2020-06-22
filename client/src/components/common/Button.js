@@ -12,7 +12,7 @@ const buttonStyle = css`
   outline: none;
   cursor: pointer;
 
-  background: #228be6;
+  background: #61380b;
   ${(props) =>
     props.auth &&
     css`
@@ -24,7 +24,7 @@ const buttonStyle = css`
       );
     `}
   &:hover {
-    background: #74c0fc;
+    opacity: 0.8;
   }
 `;
 
