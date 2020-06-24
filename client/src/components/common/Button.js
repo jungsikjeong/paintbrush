@@ -13,7 +13,7 @@ const buttonStyle = css`
   cursor: pointer;
 
   background: #61380b;
-  ${(props) =>
+  /* ${(props) =>
     props.auth &&
     css`
       background: linear-gradient(
@@ -22,7 +22,7 @@ const buttonStyle = css`
         rgba(83, 203, 241, 1) 55%,
         rgba(5, 171, 224, 1) 99%
       );
-    `}
+    `} */
   &:hover {
     opacity: 0.8;
   }
@@ -36,12 +36,17 @@ const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
 
+// const Button = (props) => {
+//   return props.to ? (
+//     // <StyledLink {...props} auth={props.auth ? 1 : 0} />
+//     <StyledLink {...props} />
+//   ) : (
+//     <StyledButton {...props} />
+//   );
+// };
+
 const Button = (props) => {
-  return props.to ? (
-    <StyledLink {...props} auth={props.auth ? 1 : 0} />
-  ) : (
-    <StyledButton {...props} />
-  );
+  return <StyledButton {...props} />;
 };
 
 export default Button;

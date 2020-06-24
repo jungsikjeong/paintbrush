@@ -1,5 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import Button from '../common/Button';
 
 const AuthFormBlock = styled.div``;
@@ -14,31 +15,31 @@ const Input = styled.input`
   margin-top: 15px;
 `;
 
-const textMap = {
-  login: 'Login',
-  register: 'Register',
-};
-
 const Footer = styled.div`
   margin-top: 1rem;
-  text-align: right;
-  &:hover {
-  }
+`;
+const SLink = styled(Link)``;
+
+const StyleButton = styled(Button)`
+  width: 100%;
 `;
 
 const AuthForm = ({ type }) => {
-  const text = textMap[type];
+  // 임시
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <AuthFormBlock>
-      <form>
+      <form onSubmit={onSubmit}>
         <Input placeholder="email@domain.com" />
 
         {type === 'register' && (
           <Input
             autoComplete="name"
             name="name"
-            placeholder="UserName"
+            placeholder="userName"
             // onChange={onChange}
             // value={form.name}
           />
@@ -47,7 +48,7 @@ const AuthForm = ({ type }) => {
           autoComplete="new-password"
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="password"
           // onChange={onChange}
           // value={form.password}
         />
@@ -57,14 +58,18 @@ const AuthForm = ({ type }) => {
             autoComplete="new-password"
             type="password"
             name="passwordConfirm"
-            placeholder="Password Check"
+            placeholder="password Check"
             // onChange={onChange}
             // value={form.password}
           />
         )}
 
         <Footer>
-          {type === 'login' ? <Button>Login</Button> : <Button>Sign up</Button>}
+          {type === 'login' ? (
+            <StyleButton>Login</StyleButton>
+          ) : (
+            <StyleButton style={{ background: '#4dabf7' }}>sign up</StyleButton>
+          )}
         </Footer>
       </form>
     </AuthFormBlock>
