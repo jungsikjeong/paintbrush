@@ -69,6 +69,33 @@ const auth = handleActions(
       ...state,
       [form]: { ...state[form], [key]: value },
     }),
+    [INITIALIZE_FORM]: (state, { payload: { form } }) => ({
+      ...state,
+      [form]: initialState[form], // state초기화
+      authError: null, // 폼 전환 시 회원 인증 에러 초기화
+    }),
+    // 회원가입 성공
+    [REGISTER_SUCCESS]: (state, { payload: { auth } }) => ({
+      ...state,
+      auth,
+      authError: null,
+    }),
+    // 회원가입 실패
+    [REGISTER_FAILURE]: (state, { payload: { error } }) => ({
+      ...state,
+      authError: error,
+    }),
+    // 로그인 성공
+    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+    }),
+    // 로그인 실패
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
   },
   initialState,
 );
