@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 const BoardButtonContainer = ({
-  handleModeClick,
+  onModeClick,
   filling,
-  handleSaveClick,
+  onSaveClick,
   history,
 }) => {
   const { copyCanvas } = useSelector(({ canvas }) => ({
@@ -21,9 +21,9 @@ const BoardButtonContainer = ({
 
   return (
     <BoardButton
-      handleModeClick={handleModeClick}
+      onModeClick={onModeClick}
       filling={filling}
-      handleSaveClick={handleSaveClick}
+      onSaveClick={onSaveClick}
     />
   );
 };

@@ -78,18 +78,6 @@ const LogoutBtn = styled(Button)`
   }
 `;
 
-const LoginBtn = styled(Button)`
-  border: 1px solid skyblue;
-  background-color: rgba(0, 0, 0, 0);
-  color: skyblue;
-  padding: 5px;
-  border-radius: 5px;
-  :hover {
-    color: white;
-    background-color: skyblue;
-  }
-`;
-
 const Spacer = styled.div`
   height: 4rem;
 `;
@@ -192,10 +180,10 @@ const Header = ({ user, onToggle, toggle, onLogout }) => {
             </div>
           ) : ( */}
           <div className="right">
-            <SLink to="/login">
-              {/* <FaUserCircle size="24" color="#3498db" /> */}
-              <LoginBtn>로그인</LoginBtn>
-            </SLink>
+            {/* <FaUserCircle size="24" color="#3498db" /> */}
+            <Button to="/login" header>
+              로그인
+            </Button>
           </div>
           {/* )} */}
         </Wrapper>

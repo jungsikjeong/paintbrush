@@ -80,40 +80,43 @@ const Board = () => {
     }
   };
 
-  const handleColorClick = (e) => {
+  const onColorClick = (e) => {
     setColor(e.target.style.backgroundColor);
 
     ctx.current.strokeStyle = e.target.style.backgroundColor;
     ctx.current.fillStyle = e.target.style.backgroundColor;
   };
 
-  const handleRangeChange = (e) => {
+  const onRangeChange = (e) => {
     const size = e.target.value;
     ctx.current.lineWidth = size;
   };
 
   // true면 fill, false면 paint
-  const handleModeClick = () => {
+  const onModeClick = () => {
     setFilling(!filling);
   };
 
-  const handleCanvasClick = () => {
+  const onCanvasClick = () => {
     if (filling) {
       ctx.current.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     }
-  };
-
-  const keydownHandler = () => {
-    ctx.current.restore();
   };
 
   const onContextMenu = (e) => {
     e.preventDefault();
   };
 
-  const handleSaveClick = () => {
+  const onSaveClick = () => {
     const imageData = canvas.current.toDataURL();
     dispatch(canvasCopy(imageData));
+  };
+
+  const onRemoveCanvas = (e) => {
+    // ctrl17,90
+    if (e.keycode === 17 && e.keycode === 90) {
+      console.log('입력완료');
+    }
   };
 
   useEffect(() => {
@@ -137,7 +140,7 @@ const Board = () => {
           onMouseDown={startPainting}
           onMouseUp={stopPainting}
           onMouseLeave={stopPainting}
-          onClick={handleCanvasClick}
+          onClick={onCanvasClick}
           onContextMenu={onContextMenu}
         ></Canvas>
       </CanvasBlock>
@@ -148,16 +151,16 @@ const Board = () => {
             min="0.1"
             max="5"
             defaultValue={'2.5'}
-            onChange={handleRangeChange}
+            onChange={onRangeChange}
             step="0.1"
           />
         </div>
         <BoardButtonContainer
-          handleModeClick={handleModeClick}
+          onModeClick={onModeClick}
           filling={filling}
-          handleSaveClick={handleSaveClick}
+          onSaveClick={onSaveClick}
         />
-        <Colors handleColorClick={handleColorClick} />
+        <Colors onColorClick={onColorClick} />
       </Controls>
     </>
   );

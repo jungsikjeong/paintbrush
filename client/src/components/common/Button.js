@@ -13,6 +13,20 @@ const buttonStyle = css`
   cursor: pointer;
 
   background: #61380b;
+
+  ${(props) =>
+    props.header &&
+    css`
+      border: 1px solid skyblue;
+      background-color: rgba(0, 0, 0, 0);
+      color: skyblue;
+      padding: 5px;
+      border-radius: 5px;
+      :hover {
+        color: white;
+        background-color: skyblue;
+      }
+    `}
   /* ${(props) =>
     props.auth &&
     css`
@@ -36,17 +50,17 @@ const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
 
-// const Button = (props) => {
-//   return props.to ? (
-//     // <StyledLink {...props} auth={props.auth ? 1 : 0} />
-//     <StyledLink {...props} />
-//   ) : (
-//     <StyledButton {...props} />
-//   );
-// };
-
 const Button = (props) => {
-  return <StyledButton {...props} />;
+  return props.to ? (
+    // <StyledLink {...props} auth={props.auth ? 1 : 0} />
+    <StyledLink {...props} header={props.header ? 1 : 0} />
+  ) : (
+    <StyledButton {...props} />
+  );
 };
+
+// const Button = (props) => {
+//   return <StyledButton {...props} />;
+// };
 
 export default Button;

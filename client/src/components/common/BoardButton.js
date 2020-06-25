@@ -23,15 +23,15 @@ const ButtonBlock = styled.div`
   }
 `;
 
-const BoardButton = ({ handleModeClick, filling, handleSaveClick }) => {
+const BoardButton = ({ onModeClick, filling, onSaveClick }) => {
   return (
     <ButtonBlock>
       {filling ? (
-        <button onClick={handleModeClick}>Fill</button>
+        <button onClick={onModeClick}>Fill</button>
       ) : (
-        <button onClick={handleModeClick}>Paint</button>
+        <button onClick={onModeClick}>Paint</button>
       )}
-      <button onClick={handleSaveClick}>Save</button>
+      <button onClick={onSaveClick}>Save</button>
     </ButtonBlock>
   );
 };

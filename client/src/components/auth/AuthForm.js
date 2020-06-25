@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Button from '../common/Button';
 
+const ErrorMessage = styled.div`
+  color: red;
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+`;
+
 const AuthFormBlock = styled.div``;
 
 const Input = styled.input`
@@ -24,24 +31,25 @@ const StyleButton = styled(Button)`
   width: 100%;
 `;
 
-const AuthForm = ({ type }) => {
-  // 임시
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
-
+const AuthForm = ({ type, onChange, onSubmit, form, error }) => {
   return (
     <AuthFormBlock>
       <form onSubmit={onSubmit}>
-        <Input placeholder="email@domain.com" />
+        <Input
+          placeholder="email@domain.com"
+          name="email"
+          placeholder="Email"
+          onChange={onChange}
+          value={form.email}
+        />
 
         {type === 'register' && (
           <Input
             autoComplete="name"
             name="name"
             placeholder="userName"
-            // onChange={onChange}
-            // value={form.name}
+            onChange={onChange}
+            value={form.name}
           />
         )}
         <Input
@@ -49,8 +57,8 @@ const AuthForm = ({ type }) => {
           type="password"
           name="password"
           placeholder="password"
-          // onChange={onChange}
-          // value={form.password}
+          onChange={onChange}
+          value={form.password}
         />
 
         {type === 'register' && (
@@ -58,12 +66,12 @@ const AuthForm = ({ type }) => {
             autoComplete="new-password"
             type="password"
             name="passwordConfirm"
-            placeholder="password Check"
-            // onChange={onChange}
-            // value={form.password}
+            placeholder="passwordCheck"
+            onChange={onChange}
+            value={form.passwordConfirm}
           />
         )}
-
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <Footer>
           {type === 'login' ? (
             <StyleButton>Login</StyleButton>
