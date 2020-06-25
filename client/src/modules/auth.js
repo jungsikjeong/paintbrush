@@ -1,0 +1,76 @@
+import { createAction, handleActions } from 'redux-actions';
+import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, {
+  createRequestActionTypes,
+} from '../lib/createRequestSaga';
+import * as authAPI from '../lib/api/auth';
+
+// 액션 생성 함수
+const CHANGE_FIELD = 'auth/CHANGE_FIELD';
+const INITIALIZE_FORM = 'auth/INITIALIZE';
+const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
+  'register/REGISTER',
+);
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
+  'auth/LOGIN',
+);
+
+// 액션 발생 함수
+export const changeField = createAction(
+  CHANGE_FIELD,
+  ({ form, key, value }) => ({
+    form,
+    key,
+    value,
+  }),
+);
+
+export const initializeFore = createAction(INITIALIZE_FORM, (form) => form);
+
+export const login = createAction(LOGIN, ({ email, password }) => ({
+  email,
+  password,
+}));
+
+export const register = createAction(REGISTER, ({ email, name, password }) => ({
+  email,
+  name,
+  password,
+}));
+
+// 사가 생성
+const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+const registerSaga = createRequestSaga(REGISTER, authAPI.register);
+
+export function* authSaga() {
+  yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(REGISTER, registerSaga);
+}
+
+const initialState = {
+  register: {
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+  },
+  login: {
+    email: '',
+    password: '',
+  },
+  auth: null,
+  authError: null,
+};
+
+// 리듀서
+const auth = handleActions(
+  {
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) => ({
+      ...state,
+      [form]: { ...state[form], [key]: value },
+    }),
+  },
+  initialState,
+);
+
+export default auth;
