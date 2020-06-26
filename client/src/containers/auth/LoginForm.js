@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthForm from '../../components/auth/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, login, initializeForm } from '../../modules/auth';
+import { changeField, initializeForm, login } from '../../modules/auth';
 import { check } from '../../modules/user';
 import { withRouter } from 'react-router-dom';
 
@@ -9,9 +9,8 @@ const LoginForm = ({ history }) => {
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
-
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
-    form: auth.register,
+    form: auth.login,
     auth: auth.auth,
     authError: auth.authError,
     user: user.user,
@@ -19,7 +18,6 @@ const LoginForm = ({ history }) => {
 
   const onChange = (e) => {
     const { value, name } = e.target;
-
     dispatch(
       changeField({
         form: 'login',
@@ -31,7 +29,6 @@ const LoginForm = ({ history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     const { email, password } = form;
     dispatch(login({ email, password }));
   };
@@ -43,12 +40,11 @@ const LoginForm = ({ history }) => {
 
   useEffect(() => {
     if (authError) {
-      console.log('로그인 실패');
+      console.log('오류 발생');
       console.log(authError);
       setError('로그인 실패');
       return;
     }
-
     if (auth) {
       console.log('로그인 성공');
       dispatch(check());
@@ -58,6 +54,7 @@ const LoginForm = ({ history }) => {
   useEffect(() => {
     if (user) {
       history.push('/');
+      console.log('user:', user);
       try {
         localStorage.setItem('user', JSON.stringify(user));
       } catch (e) {
@@ -65,14 +62,13 @@ const LoginForm = ({ history }) => {
       }
     }
   }, [history, user]);
-
   return (
     <AuthForm
       type="login"
       form={form}
-      error={error}
-      onSubmit={onSubmit}
       onChange={onChange}
+      onSubmit={onSubmit}
+      error={error}
     />
   );
 };

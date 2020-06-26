@@ -49,9 +49,9 @@ const AuthTemplate = ({ children, type }) => {
         <AuthLogo />
 
         {children}
+
         <Footer>
           <div style={{ padding: '10px' }}> or</div>
-
           {type === 'login' ? (
             <div className="footerBox">
               <StyleButton style={{ background: '#4dabf7' }}>

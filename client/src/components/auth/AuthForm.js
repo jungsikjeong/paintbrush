@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Button from '../common/Button';
@@ -74,7 +74,7 @@ const AuthForm = ({ type, onChange, onSubmit, form, error }) => {
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Footer>
           {type === 'login' ? (
-            <StyleButton>Login</StyleButton>
+            <StyleButton auth>Login</StyleButton>
           ) : (
             <StyleButton style={{ background: '#4dabf7' }} auth>
               sign up

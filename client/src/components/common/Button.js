@@ -27,16 +27,7 @@ const buttonStyle = css`
         background-color: skyblue;
       }
     `}
-  /* ${(props) =>
-    props.auth &&
-    css`
-      background: linear-gradient(
-        135deg,
-        rgba(135, 224, 253, 1) 0%,
-        rgba(83, 203, 241, 1) 55%,
-        rgba(5, 171, 224, 1) 99%
-      );
-    `} */
+
   &:hover {
     opacity: 0.8;
   }
@@ -52,7 +43,6 @@ const StyledLink = styled(Link)`
 
 const Button = (props) => {
   return props.to ? (
-    // <StyledLink {...props} auth={props.auth ? 1 : 0} />
     <StyledLink
       {...props}
       header={props.header ? 1 : 0}
@@ -62,9 +52,5 @@ const Button = (props) => {
     <StyledButton {...props} />
   );
 };
-
-// const Button = (props) => {
-//   return <StyledButton {...props} />;
-// };
 
 export default Button;

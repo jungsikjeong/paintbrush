@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeField, register, initializeForm } from '../../modules/auth';
 import { check } from '../../modules/user';
 import { withRouter } from 'react-router-dom';
+
 const RegisterForm = ({ history }) => {
   const [error, setError] = useState(null);
 
@@ -79,6 +80,7 @@ const RegisterForm = ({ history }) => {
     }
   }, [dispatch, auth, authError]);
 
+  // user 값이 잘 설정되었는지 확인
   useEffect(() => {
     if (user) {
       history.push('/postList');
