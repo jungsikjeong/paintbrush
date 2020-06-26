@@ -53,7 +53,11 @@ const StyledLink = styled(Link)`
 const Button = (props) => {
   return props.to ? (
     // <StyledLink {...props} auth={props.auth ? 1 : 0} />
-    <StyledLink {...props} header={props.header ? 1 : 0} />
+    <StyledLink
+      {...props}
+      header={props.header ? 1 : 0}
+      auth={props.auth ? 1 : 0}
+    />
   ) : (
     <StyledButton {...props} />
   );

@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import AuthForm from '../../components/auth/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, register, initializeForm } from '../../modules/auth';
-
-const RegisterForm = () => {
+import { check } from '../../modules/user';
+import { withRouter } from 'react-router-dom';
+const RegisterForm = ({ history }) => {
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
 
-  const { form, auth, authError } = useSelector(({ auth }) => ({
+  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.register,
     auth: auth.auth,
     authError: auth.authError,
+    user: user.user,
   }));
 
   const onChange = (e) => {
@@ -62,12 +64,13 @@ const RegisterForm = () => {
     if (auth) {
       console.log('회원가입 성공');
       console.log(auth);
-      // dispatch(check());
+      dispatch(check());
     }
     // 회원가입 실패
     if (authError) {
       if (authError.response === 409) {
         setError('이미 존재하는 이메일입니다.');
+        console.log('이미 존재하는 메일입니다.');
         return;
       }
       //기타 이유
@@ -75,6 +78,17 @@ const RegisterForm = () => {
       return;
     }
   }, [dispatch, auth, authError]);
+
+  useEffect(() => {
+    if (user) {
+      history.push('/postList');
+      try {
+        localStorage.setItem('user', JSON.stringify(user));
+      } catch (e) {
+        console.log('localStorage is not working');
+      }
+    }
+  }, [history, user]);
 
   return (
     <AuthForm
@@ -87,4 +101,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default withRouter(RegisterForm);

@@ -36,9 +36,9 @@ const AuthForm = ({ type, onChange, onSubmit, form, error }) => {
     <AuthFormBlock>
       <form onSubmit={onSubmit}>
         <Input
+          autoComplete="email"
           placeholder="email@domain.com"
           name="email"
-          placeholder="Email"
           onChange={onChange}
           value={form.email}
         />
@@ -76,7 +76,9 @@ const AuthForm = ({ type, onChange, onSubmit, form, error }) => {
           {type === 'login' ? (
             <StyleButton>Login</StyleButton>
           ) : (
-            <StyleButton style={{ background: '#4dabf7' }}>sign up</StyleButton>
+            <StyleButton style={{ background: '#4dabf7' }} auth>
+              sign up
+            </StyleButton>
           )}
         </Footer>
       </form>
