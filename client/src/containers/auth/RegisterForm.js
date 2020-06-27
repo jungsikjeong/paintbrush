@@ -59,31 +59,29 @@ const RegisterForm = ({ history }) => {
     dispatch(initializeForm('register'));
   }, [dispatch]);
 
-  // 회원가입 성공 or 실패시
+  // 회원가입 성공or실패
   useEffect(() => {
-    // 회원가입 성공
+    if (authError) {
+      if (authError.response.status === 409) {
+        setError('이미 존재하는 이메일입니다.');
+        return;
+      }
+      // 기타이유
+      setError('회원가입 실패');
+      return;
+    }
+
     if (auth) {
       console.log('회원가입 성공');
       console.log(auth);
       dispatch(check());
     }
-    // 회원가입 실패
-    if (authError) {
-      if (authError.response === 409) {
-        setError('이미 존재하는 이메일입니다.');
-        console.log('이미 존재하는 메일입니다.');
-        return;
-      }
-      //기타 이유
-      setError('회원가입 실패');
-      return;
-    }
-  }, [dispatch, auth, authError]);
+  }, [auth, authError, dispatch]);
 
   // user 값이 잘 설정되었는지 확인
   useEffect(() => {
     if (user) {
-      history.push('/postList');
+      history.push('/');
       try {
         localStorage.setItem('user', JSON.stringify(user));
       } catch (e) {

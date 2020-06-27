@@ -4,7 +4,6 @@ import { startLoading, finishLoading } from '../modules/loading';
 export const createRequestActionTypes = (type) => {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
-
   return [type, SUCCESS, FAILURE];
 };
 
@@ -18,7 +17,8 @@ export default function createRequestSaga(type, request) {
       const response = yield call(request, action.payload);
       yield put({
         type: SUCCESS,
-        payload: action.payload,
+        payload: response.data,
+        meta: response,
       });
     } catch (e) {
       yield put({
@@ -30,6 +30,5 @@ export default function createRequestSaga(type, request) {
     yield put(finishLoading(type)); // 로딩 끝
   };
 }
-
 /* 이렇게 액션 안에 meta 값을 response로 넣어주면 
         나중에 HTTP 헤더 및 상태 코드를 쉽게 조회 할 수있음 */

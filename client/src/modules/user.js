@@ -1,11 +1,11 @@
 import { createAction, handleActions } from 'redux-actions';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, call } from 'redux-saga/effects';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
 import * as authAPI from '../lib/api/auth';
 
-// 액션 생성함수
+// 액션 생성 함수
 const TEMP_SET_USER = 'user/TEMP_SET_USER'; // 새로고침 이후 임시 로그인 처리 ,localStorage활용
 //회원 정보 확인
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
@@ -20,7 +20,7 @@ export const logout = createAction(LOGOUT);
 
 // 사가 생성
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
-//유저확인을 실패하면 로컬스토리지에서 삭제해줌
+
 function checkFailureSaga() {
   try {
     localStorage.removeItem('user');
@@ -28,7 +28,6 @@ function checkFailureSaga() {
     console.log('localStorage is not working');
   }
 }
-
 function* logoutSaga() {
   try {
     yield call(authAPI.logout);

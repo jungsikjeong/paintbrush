@@ -25,7 +25,6 @@ const Input = styled.input`
 const Footer = styled.div`
   margin-top: 1rem;
 `;
-const SLink = styled(Link)``;
 
 const StyleButton = styled(Button)`
   width: 100%;
@@ -74,11 +73,9 @@ const AuthForm = ({ type, onChange, onSubmit, form, error }) => {
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Footer>
           {type === 'login' ? (
-            <StyleButton auth>Login</StyleButton>
+            <StyleButton>Login</StyleButton>
           ) : (
-            <StyleButton style={{ background: '#4dabf7' }} auth>
-              sign up
-            </StyleButton>
+            <StyleButton style={{ background: '#4dabf7' }}>sign up</StyleButton>
           )}
         </Footer>
       </form>

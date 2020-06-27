@@ -54,15 +54,17 @@ const AuthTemplate = ({ children, type }) => {
           <div style={{ padding: '10px' }}> or</div>
           {type === 'login' ? (
             <div className="footerBox">
-              <StyleButton style={{ background: '#4dabf7' }}>
-                <SLink to="/register">sign up</SLink>
-              </StyleButton>
+              <SLink to="/register">
+                <StyleButton style={{ background: '#4dabf7' }}>
+                  sign up
+                </StyleButton>
+              </SLink>
             </div>
           ) : (
             <div className="footerBox">
-              <StyleButton>
-                <SLink to="/login">Login</SLink>
-              </StyleButton>
+              <SLink to="/login">
+                <StyleButton>Login</StyleButton>
+              </SLink>
             </div>
           )}
         </Footer>

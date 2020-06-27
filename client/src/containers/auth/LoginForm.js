@@ -52,6 +52,7 @@ const LoginForm = ({ history }) => {
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
+    console.log('user:', user);
     if (user) {
       history.push('/');
       console.log('user:', user);
@@ -62,6 +63,7 @@ const LoginForm = ({ history }) => {
       }
     }
   }, [history, user]);
+
   return (
     <AuthForm
       type="login"
