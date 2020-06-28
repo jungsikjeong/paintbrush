@@ -1,12 +1,12 @@
 import { createAction, handleActions } from 'redux-actions';
 
 // 액션 생성
-const TOGGLESTATE = 'toggle/TOGGLE';
-const TOGGLEFALSE = 'toggle/TOGGLEFALSE';
+const TOGGLE_STATE = 'toggle/TOGGLE';
+const TOGGLE_FALSE = 'toggle/TOGGLEFALSE';
 
 // 액션 발생 함수
-export const toggleState = createAction(TOGGLESTATE);
-export const toggleFalse = createAction(TOGGLEFALSE);
+export const toggleState = createAction(TOGGLE_STATE);
+export const toggleFalse = createAction(TOGGLE_FALSE);
 
 const initialState = {
   toggle: '',
@@ -15,11 +15,11 @@ const initialState = {
 // 리듀서
 export default handleActions(
   {
-    [TOGGLESTATE]: (state, { payload: toggle }) => ({
+    [TOGGLE_STATE]: (state, { payload: toggle }) => ({
       ...state,
       toggle: !state.toggle,
     }),
-    [TOGGLEFALSE]: (state, { payload: toggleFalse }) => ({
+    [TOGGLE_FALSE]: (state, { payload: toggleFalse }) => ({
       ...state,
       toggle: toggleFalse,
     }),
