@@ -52,10 +52,8 @@ const LoginForm = ({ history }) => {
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
-    console.log('user:', user);
     if (user) {
-      history.push('/');
-      console.log('user:', user);
+      history.push('/postList');
       try {
         localStorage.setItem('user', JSON.stringify(user));
       } catch (e) {

@@ -66,13 +66,14 @@ const InfoLink = styled(Link)`
 const LogoutBtn = styled(Button)`
   display: flex;
   width: 100%;
-  height: 40px;
+  height: 35px;
   border: none;
   background-color: transparent;
   color: rgb(51, 51, 51);
   font-size: 14px;
   font-weight: unset;
-  padding: 0px 36px 0px 16px;
+  text-align: center;
+  /* padding: 0px 36px 0px 16px; */
   :hover {
     background: #7095b3;
   }
@@ -141,7 +142,7 @@ const Header = ({ user, onToggle, toggle, onLogout }) => {
       <HeaderBlock>
         <Wrapper>
           <div className="logo" />
-          {/* {user ? (
+          {user ? (
             <div className="right">
               <FaUserCircle
                 size="30"
@@ -164,28 +165,25 @@ const Header = ({ user, onToggle, toggle, onLogout }) => {
                         <span className="userEmail">{user.email}</span>
                       </div>
                     </div>
-                    <InfoLink to="/write" className="infoLink">
-                      Write a to do
+                    <InfoLink to="/paint" className="infoLink">
+                      그림 그리러가기🎨
                     </InfoLink>
                     <InfoLink to="/profile" className="infoLink">
-                      Profile
+                      내 프로필
                     </InfoLink>
-                    <InfoLink to="/postList" className="infoLink">
-                      Others
-                    </InfoLink>
-                    <LogoutBtn onClick={onLogout}>Log Out</LogoutBtn>
+                    <LogoutBtn onClick={onLogout}>로그아웃</LogoutBtn>
                   </SubInfoWrapper>
                 </SubInfoBlock>
               )}
             </div>
-          ) : ( */}
-          <div className="right">
-            {/* <FaUserCircle size="24" color="#3498db" /> */}
-            <Button to="/login" header>
-              로그인
-            </Button>
-          </div>
-          {/* )} */}
+          ) : (
+            <div className="right">
+              {/* <FaUserCircle size="24" color="#3498db" /> */}
+              <Button to="/login" header>
+                로그인
+              </Button>
+            </div>
+          )}
         </Wrapper>
       </HeaderBlock>
       <Spacer />
