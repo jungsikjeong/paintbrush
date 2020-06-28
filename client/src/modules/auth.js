@@ -69,9 +69,9 @@ const auth = handleActions(
       ...state,
       [form]: { ...state[form], [key]: value },
     }),
-    [INITIALIZE_FORM]: (state, { payload: { form } }) => ({
+    [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
-      [form]: initialState[form], // state초기화
+      [form]: initialState[form],
       authError: null, // 폼 전환 시 회원 인증 에러 초기화
     }),
     // 회원가입 성공
