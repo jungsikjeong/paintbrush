@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/common/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../modules/user';
-import { toggleState } from '../../modules/toggle';
+import { toggleState, toggleFalse } from '../../modules/toggle';
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();
@@ -20,6 +20,10 @@ const HeaderContainer = () => {
     dispatch(toggleState(false));
   };
 
+  const onToggleFalse = () => {
+    if (toggle) dispatch(toggleFalse(false));
+  };
+
   return (
     <Header
       user={user}
@@ -27,6 +31,7 @@ const HeaderContainer = () => {
       onToggle={onToggle}
       toggle={toggle}
       onLogout={onLogout}
+      onToggleFalse={onToggleFalse}
     />
   );
 };

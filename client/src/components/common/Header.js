@@ -136,10 +136,10 @@ const SubInfoWrapper = styled.div`
   }
 `;
 
-const Header = ({ user, onToggle, toggle, onLogout }) => {
+const Header = ({ user, onToggle, toggle, onLogout, onToggleFalse }) => {
   return (
     <>
-      <HeaderBlock>
+      <HeaderBlock onClick={onToggleFalse}>
         <Wrapper>
           <div className="logo" />
           {user ? (
