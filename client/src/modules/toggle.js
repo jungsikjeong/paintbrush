@@ -15,13 +15,13 @@ const initialState = {
 // 리듀서
 export default handleActions(
   {
-    [TOGGLE_STATE]: (state, { payload: toggle }) => ({
+    [TOGGLE_STATE]: (state) => ({
       ...state,
       toggle: !state.toggle,
     }),
-    [TOGGLE_FALSE]: (state, { payload: toggleFalse }) => ({
+    [TOGGLE_FALSE]: (state) => ({
       ...state,
-      toggle: toggleFalse,
+      toggle: false,
     }),
   },
   initialState,

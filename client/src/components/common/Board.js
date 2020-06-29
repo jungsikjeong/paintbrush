@@ -11,6 +11,13 @@ const CanvasBlock = styled.div`
   align-items: center;
   justify-content: center;
   padding: 50px 0px;
+
+  .removeCanvas {
+    width: 50px;
+    height: 50px;
+    background: black;
+    cursor: pointer;
+  }
 `;
 
 const Canvas = styled.canvas`
@@ -19,6 +26,7 @@ const Canvas = styled.canvas`
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  /* cursor: url(https://cur.cursors-4u.net/others/oth-2/oth198.cur) 39 39, auto !important; */
 `;
 
 const Controls = styled.div`
@@ -48,22 +56,26 @@ const SLink = styled(Link)``;
 
 const Board = () => {
   const [filling, setFilling] = useState(false);
+  const [canvasRemove, setCanvasRemove] = useState(false);
   const [color, setColor] = useState('#2c2c2c');
   const dispatch = useDispatch();
 
   const CANVAS_SIZE = 700;
 
   let painting = false;
+  let removeIng = false;
 
   const canvas = useRef(null);
   const ctx = useRef(null);
 
   const startPainting = () => {
     painting = true;
+    removeIng = true;
   };
 
   const stopPainting = () => {
     painting = false;
+    removeIng = false;
   };
 
   const onMouseMove = ({ nativeEvent }) => {
@@ -74,9 +86,12 @@ const Board = () => {
     if (!painting) {
       ctx.current.beginPath();
       ctx.current.moveTo(x, y);
-    } else {
+    } else if (painting && !canvasRemove) {
       ctx.current.lineTo(x, y);
       ctx.current.stroke();
+    }
+    if (canvasRemove && removeIng) {
+      onRemoveCanvas(x, y);
     }
   };
 
@@ -112,11 +127,22 @@ const Board = () => {
     dispatch(canvasCopy(imageData));
   };
 
-  const onRemoveCanvas = (e) => {
-    // ctrl17,90
-    if (e.keycode === 17 && e.keycode === 90) {
-      console.log('입력완료');
-    }
+  // 지우개
+  const onRemoveCanvas = (x, y) => {
+    const lineWidth = ctx.current.lineWidth + 5;
+    ctx.current.clearRect(
+      x - lineWidth / 2,
+      y - lineWidth / 2,
+      lineWidth,
+      lineWidth,
+    );
+    console.log('지우개 작동');
+  };
+  // 지우개 모드로전환 or 지우개모드 끄기
+  const onRemoveModeClick = () => {
+    setCanvasRemove(!canvasRemove);
+    painting = false;
+    console.log(canvasRemove);
   };
 
   useEffect(() => {
@@ -143,6 +169,7 @@ const Board = () => {
           onClick={onCanvasClick}
           onContextMenu={onContextMenu}
         ></Canvas>
+        <div className="removeCanvas" onClick={onRemoveModeClick}></div>
       </CanvasBlock>
       <Controls>
         <div className="controls__range">
