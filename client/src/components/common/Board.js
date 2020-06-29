@@ -9,31 +9,27 @@ import BoardButtonContainer from '../../containers/boardButton/BoardButtonContai
 const CanvasBlock = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   padding: 50px 0px;
-
-  .removeCanvas {
-    width: 50px;
-    height: 50px;
-    background: black;
-    cursor: pointer;
-  }
 `;
 
 const Canvas = styled.canvas`
+  margin-left: 2.5rem;
   width: 700px;
   height: 700px;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+
   /* cursor: url(https://cur.cursors-4u.net/others/oth-2/oth198.cur) 39 39, auto !important; */
 `;
 
 const Controls = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 50px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* padding-bottom: 50px; */
+  padding: 1rem;
 
   .controls__range {
     margin-bottom: 30px;
@@ -41,10 +37,17 @@ const Controls = styled.div`
 
   .controls__colors {
     display: flex;
+
+    .controls__colors__one {
+      /* display: flex; */
+      /* flex-direction: column; */
+    }
+
     .controls__color {
       width: 50px;
       height: 50px;
       border-radius: 25px;
+      margin: 0.2rem;
       cursor: pointer;
       box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11),
         0 1px 3px rgba(0, 0, 0, 0.08);
@@ -136,7 +139,6 @@ const Board = () => {
       lineWidth,
       lineWidth,
     );
-    console.log('지우개 작동');
   };
   // 지우개 모드로전환 or 지우개모드 끄기
   const onRemoveModeClick = () => {
@@ -169,26 +171,26 @@ const Board = () => {
           onClick={onCanvasClick}
           onContextMenu={onContextMenu}
         ></Canvas>
-        <div className="removeCanvas" onClick={onRemoveModeClick}></div>
-      </CanvasBlock>
-      <Controls>
-        <div className="controls__range">
-          <input
-            type="range"
-            min="0.1"
-            max="5"
-            defaultValue={'2.5'}
-            onChange={onRangeChange}
-            step="0.1"
+
+        <Controls>
+          <div className="controls__range">
+            <input
+              type="range"
+              min="0.1"
+              max="5"
+              defaultValue={'2.5'}
+              onChange={onRangeChange}
+              step="0.1"
+            />
+          </div>
+          <BoardButtonContainer
+            onModeClick={onModeClick}
+            filling={filling}
+            onSaveClick={onSaveClick}
           />
-        </div>
-        <BoardButtonContainer
-          onModeClick={onModeClick}
-          filling={filling}
-          onSaveClick={onSaveClick}
-        />
-        <Colors onColorClick={onColorClick} />
-      </Controls>
+          <Colors onColorClick={onColorClick} />
+        </Controls>
+      </CanvasBlock>
     </>
   );
 };
