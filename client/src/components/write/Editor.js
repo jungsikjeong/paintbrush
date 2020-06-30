@@ -11,49 +11,18 @@ const EditorBlock = styled.div`
   padding: 50px 0px;
 `;
 
-const Canvas = styled.canvas`
-  width: 700px;
-  height: 700px;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-`;
-
 const Editor = () => {
-  const [ctx, setCtx] = useState(null);
-  const canvas = useRef(null);
-  const image = useRef(null);
-
-  const { copyCanvas } = useSelector(({ canvas }) => ({
-    copyCanvas: canvas.copyCanvas,
-  }));
-  const imageData = copyCanvas;
-  const CANVAS_SIZE = 700;
-
-  useEffect(() => {
-    if (canvas.current) {
-      setCtx(canvas.current.getContext('2d'));
-    }
-  }, [canvas]);
-
-  useEffect(() => {
-    if (ctx) {
-      image.current.onload = function () {
-        ctx.drawImage(image.current, 0, 0);
-      };
-      image.current.src = imageData;
-    }
-  }, [ctx]);
-
-  return (
-    <EditorBlock>
-      <img ref={image} />
-      <Canvas ref={canvas} width={CANVAS_SIZE} height={CANVAS_SIZE}></Canvas>
-    </EditorBlock>
-  );
+  return <EditorBlock></EditorBlock>;
 };
 
 export default Editor;
+
+// return (
+//   <EditorBlock>
+//     <img ref={image} />
+//     <Canvas ref={canvas} width={CANVAS_SIZE} height={CANVAS_SIZE}></Canvas>
+//   </EditorBlock>
+// );
 
 //   const callCanvasImage = () => {
 //     const image = new Image(); // 이미지 객체 생성

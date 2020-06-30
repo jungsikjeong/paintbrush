@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Colors from './Colors';
+import Colors from '../common/Colors';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { canvasCopy } from '../../modules/canvas';
-import BoardToolbarContainer from '../../containers/boardToolbar/BoardToolbarContainer';
+import BoardToolbarContainer from '../../containers/write/BoardToolbarContainer';
 
 const CanvasBlock = styled.div`
   display: flex;

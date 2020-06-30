@@ -1,5 +1,5 @@
 import React from 'react';
-import BoardContainer from '../containers/board/boardContainer';
+import BoardContainer from '../containers/write/BoardContainer';
 
 const DrawingPage = () => {
   return <BoardContainer />;

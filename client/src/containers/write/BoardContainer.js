@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from '../../components/common/Board';
+import Board from '../../components/write/Board';
 
 const BoardContainer = () => {
   return <Board />;
