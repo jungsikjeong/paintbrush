@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { canvasCopy } from '../../modules/canvas';
 import BoardToolbarContainer from '../../containers/write/BoardToolbarContainer';
+import Editor from './Editor';
 
 const CanvasBlock = styled.div`
   display: flex;
@@ -190,6 +191,7 @@ const Board = () => {
           />
           <Colors onColorClick={onColorClick} />
         </Controls>
+        <Editor />
       </CanvasBlock>
     </>
   );

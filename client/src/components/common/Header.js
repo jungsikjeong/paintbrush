@@ -165,7 +165,7 @@ const Header = ({ user, onToggle, toggle, onLogout, onToggleFalse }) => {
                         <span className="userEmail">{user.email}</span>
                       </div>
                     </div>
-                    <InfoLink to="/paint" className="infoLink">
+                    <InfoLink to="/write" className="infoLink">
                       그림 그리러가기🎨
                     </InfoLink>
                     <InfoLink to="/profile" className="infoLink">

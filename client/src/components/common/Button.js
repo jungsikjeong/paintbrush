@@ -12,6 +12,7 @@ const buttonStyle = css`
   outline: none;
   cursor: pointer;
 
+  /* 기본 버튼 색상, 갈색 */
   background: #61380b;
 
   ${(props) =>
@@ -27,6 +28,18 @@ const buttonStyle = css`
         background-color: skyblue;
       }
     `}
+
+  ${(props) =>
+    props.cyan &&
+    css`
+      background: #3bc9db;
+    `}
+
+    ${(props) =>
+      props.gray &&
+      css`
+        background: #343a40;
+      `}
 
   &:hover {
     opacity: 0.8;
