@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import BoardButton from '../../components/common/BoardButton';
+import BoardToolbar from '../../components/common/BoardToolbar';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-const BoardButtonContainer = ({
+const BoardToolbarContainer = ({
   onModeClick,
   filling,
-  onSaveClick,
+  onRemoveModeClick,
   history,
 }) => {
   const { copyCanvas } = useSelector(({ canvas }) => ({
@@ -20,12 +20,12 @@ const BoardButtonContainer = ({
   }, [history, copyCanvas]);
 
   return (
-    <BoardButton
+    <BoardToolbar
       onModeClick={onModeClick}
       filling={filling}
-      onSaveClick={onSaveClick}
+      onRemoveModeClick={onRemoveModeClick}
     />
   );
 };
 
-export default withRouter(BoardButtonContainer);
+export default withRouter(BoardToolbarContainer);

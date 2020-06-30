@@ -4,7 +4,7 @@ import Colors from './Colors';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { canvasCopy } from '../../modules/canvas';
-import BoardButtonContainer from '../../containers/boardButton/BoardButtonContainer';
+import BoardToolbarContainer from '../../containers/boardToolbar/BoardToolbarContainer';
 
 const CanvasBlock = styled.div`
   display: flex;
@@ -144,7 +144,6 @@ const Board = () => {
   const onRemoveModeClick = () => {
     setCanvasRemove(!canvasRemove);
     painting = false;
-    console.log(canvasRemove);
   };
 
   useEffect(() => {
@@ -183,10 +182,11 @@ const Board = () => {
               step="0.1"
             />
           </div>
-          <BoardButtonContainer
+          <BoardToolbarContainer
             onModeClick={onModeClick}
             filling={filling}
             onSaveClick={onSaveClick}
+            onRemoveModeClick={onRemoveModeClick}
           />
           <Colors onColorClick={onColorClick} />
         </Controls>

@@ -53,6 +53,11 @@ const Colors = ({ onColorClick }) => {
           className="controls__color"
           style={{ backgroundColor: '#5856D6' }}
         ></div>
+        <div
+          onClick={onColorClick}
+          className="controls__color"
+          style={{ backgroundColor: '#ffe3e3' }}
+        ></div>
       </div>
     </div>
   );
