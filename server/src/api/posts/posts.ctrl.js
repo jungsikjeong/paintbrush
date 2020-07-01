@@ -41,7 +41,7 @@ export const write = async (ctx) => {
     // 객체가 다음 필드를 갖고 있음을 검증
     title: Joi.string().required(), // required()가 있으면 필수 항목
     body: Joi.array().items(Joi.string()).required(),
-    tags: Joi.array().items(Joi.string()).required(),
+    // tags: Joi.array().items(Joi.string()).required(),
   });
 
   // 검증하고 나서 검증 실패인 경우 에러 처리
@@ -53,11 +53,11 @@ export const write = async (ctx) => {
     return;
   }
 
-  const { title, body, tags } = ctx.request.body;
+  // const { title, body, tags } = ctx.request.body;
+  const { title, body } = ctx.request.body;
   const post = new Post({
     title,
     body,
-    tags,
     user: ctx.state.user,
   });
 
