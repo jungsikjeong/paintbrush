@@ -145,7 +145,7 @@ const Header = ({ user, onToggle, toggle, onLogout, onToggleFalse }) => {
           {user ? (
             <div className="right">
               <FaUserCircle
-                size="30"
+                size="40"
                 color="#4dabf7"
                 className="userLogo"
                 onClick={() => onToggle()}

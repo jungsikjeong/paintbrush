@@ -8,6 +8,7 @@ import { takeLatest } from 'redux-saga/effects';
 // 액션 생성 함수
 const INITIALIZE = 'write/INITIALIZE'; // 모든 내용 초기화
 const CHANGE_FIELD = 'write/CHANGE_FIELD'; // 특정 key 값 바꾸기
+const CANVAS_DATA = 'write/CANVAS_DATA'; // 캔버스 그림
 const [
   WRITE_POST,
   WRITE_POST_SUCCESS,
@@ -20,10 +21,17 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-export const writePost = createAction(WRITE_POST, ({ title, body }) => ({
-  title,
-  body,
+export const canvasData = createAction(CANVAS_DATA, (canvasData) => ({
+  canvasData,
 }));
+export const writePost = createAction(
+  WRITE_POST,
+  ({ title, body, canvasData }) => ({
+    title,
+    body,
+    canvasData,
+  }),
+);
 
 // 사가 생성
 const writePostSaga = createRequestSaga(WRITE_POST, postsAPI.writePost);
@@ -35,7 +43,7 @@ export function* writeSaga() {
 const initialState = {
   title: '',
   body: '',
-  canvas: '',
+  canvasData: '',
   post: null,
   postError: null,
 };
@@ -47,6 +55,10 @@ const write = handleActions(
     [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
       ...state,
       [key]: value,
+    }),
+    [CANVAS_DATA]: (state, { payload: canvasData }) => ({
+      ...state,
+      canvasData,
     }),
     [WRITE_POST]: (state) => ({
       ...state,

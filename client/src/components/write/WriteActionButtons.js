@@ -17,11 +17,14 @@ const WriteActionButton = styled(Button)`
   }
 `;
 
-const WriteActionButtons = () => {
+const WriteActionButtons = ({ onPublish, onCanvasSave }) => {
   return (
     <WriteActionButtonsBlock>
       <WriteActionButtonsWrapper>
-        <WriteActionButton cyan>등록</WriteActionButton>
+        <WriteActionButton onClick={onCanvasSave}>그림저장</WriteActionButton>
+        <WriteActionButton cyan onClick={onPublish}>
+          등록
+        </WriteActionButton>
         <WriteActionButton gray>취소</WriteActionButton>
       </WriteActionButtonsWrapper>
     </WriteActionButtonsBlock>

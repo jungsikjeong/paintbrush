@@ -5,10 +5,7 @@ import { useState } from 'react';
 import WriteActionButtonsContainer from '../../containers/write/WriteActionButtonsContainer';
 
 const EditorBlock = styled.div`
-  /* 임시 css */
   display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
   padding: 0rem 5rem;
 `;
 
@@ -35,23 +32,25 @@ const EditorWrapper = styled.div`
   }
 `;
 
-const Editor = () => {
+const Editor = ({ onChange, title, body, onCanvasSave }) => {
   return (
     <EditorBlock>
       <EditorWrapper>
         <form>
           <input
-            placeholder="그림에 맞는 제목을 적어주세요!"
-            // onChange={onChangeTitle}
-            // value={title}
+            name="title"
+            placeholder="작품에 맞는 제목을 적어주세요!"
+            onChange={onChange}
+            value={title}
           />
           <textarea
-            placeholder="당신의 그림을 소개해주세요!"
-            // onChange={onChangeTitle}
-            // value={title}
+            name="body"
+            placeholder="당신의 작품을 소개해주세요!"
+            onChange={onChange}
+            value={body}
           />
         </form>
-        <WriteActionButtonsContainer />
+        <WriteActionButtonsContainer onCanvasSave={onCanvasSave} />
       </EditorWrapper>
     </EditorBlock>
   );

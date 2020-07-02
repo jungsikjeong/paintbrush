@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Colors from '../common/Colors';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { canvasCopy } from '../../modules/canvas';
+import { useDispatch, useSelector } from 'react-redux';
+import { canvasData } from '../../modules/write';
 import BoardToolbarContainer from '../../containers/write/BoardToolbarContainer';
-import Editor from './Editor';
+import EditorContainer from '../../containers/write/EditorContainer';
 
 const CanvasBlock = styled.div`
   display: flex;
@@ -26,10 +26,6 @@ const Canvas = styled.canvas`
 `;
 
 const Controls = styled.div`
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* padding-bottom: 50px; */
   padding: 1rem;
 
   .controls__range {
@@ -40,8 +36,6 @@ const Controls = styled.div`
     display: flex;
 
     .controls__colors__one {
-      /* display: flex; */
-      /* flex-direction: column; */
     }
 
     .controls__color {
@@ -52,6 +46,12 @@ const Controls = styled.div`
       cursor: pointer;
       box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11),
         0 1px 3px rgba(0, 0, 0, 0.08);
+
+      /* 클릭했을때 */
+      :active {
+        border-color: #4195fc;
+        box-shadow: 0px 0px 15px #4195fc;
+      }
     }
   }
 `;
@@ -63,6 +63,10 @@ const Board = () => {
   const [canvasRemove, setCanvasRemove] = useState(false);
   const [color, setColor] = useState('#2c2c2c');
   const dispatch = useDispatch();
+
+  const { canvasCopy } = useSelector(({ write }) => ({
+    canvasCopy: write.canvasCopy,
+  }));
 
   const CANVAS_SIZE = 700;
 
@@ -113,22 +117,15 @@ const Board = () => {
 
   // true면 fill, false면 paint
   const onModeClick = () => {
+    if (canvasRemove) setCanvasRemove(false); // 지우개모드이면 지우개모드를 끔
     setFilling(!filling);
   };
 
   const onCanvasClick = () => {
+    if (canvasRemove) return; // 지우개 모드면 아무것도 실행안함
     if (filling) {
       ctx.current.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     }
-  };
-
-  const onContextMenu = (e) => {
-    e.preventDefault();
-  };
-
-  const onSaveClick = () => {
-    const imageData = canvas.current.toDataURL();
-    dispatch(canvasCopy(imageData));
   };
 
   // 지우개
@@ -146,6 +143,39 @@ const Board = () => {
     setCanvasRemove(!canvasRemove);
     painting = false;
   };
+
+  const onCanvasSave = () => {
+    const imageData = canvas.current.toDataURL();
+    dispatch(canvasData(imageData));
+    console.log('그림저장:', canvasData);
+  };
+
+  // const onCanvasSave = () => {
+  //   const imageData = canvas.current.toDataURL();
+
+  //   const blobBin = atob(imageData.split(',')[1]); // base64 데이터 디코딩
+  //   let array = [];
+
+  //   for (let i = 0; i < blobBin.length; i++) {
+  //     array.push(blobBin.charCodeAt(i));
+  //   }
+  //   const file = new Blob([new Uint8Array(array)], { type: 'image/png' }); // Blob 생성
+  //   const formData = new FormData(); // formData 생성
+  //   formData.append('file', file); // file data 추가
+
+  //   dispatch(canvasData(formData));
+  //   console.log(formData);
+  // };
+
+  // const onCanvasSave = () => {
+  //   const Data = canvas.current.toDataURL();
+  //   const imageObj = new Image();
+
+  //   imageObj.onload = function () {
+  //     context.current.drawImage(imageObj, CANVAS_SIZE, CANVAS_SIZE);
+  //   };
+  //   imageObj.src = Data;
+  // };
 
   useEffect(() => {
     if (canvas.current) {
@@ -169,7 +199,6 @@ const Board = () => {
           onMouseUp={stopPainting}
           onMouseLeave={stopPainting}
           onClick={onCanvasClick}
-          onContextMenu={onContextMenu}
         ></Canvas>
 
         <Controls>
@@ -186,12 +215,11 @@ const Board = () => {
           <BoardToolbarContainer
             onModeClick={onModeClick}
             filling={filling}
-            onSaveClick={onSaveClick}
             onRemoveModeClick={onRemoveModeClick}
           />
           <Colors onColorClick={onColorClick} />
         </Controls>
-        <Editor />
+        <EditorContainer onCanvasSave={onCanvasSave} />
       </CanvasBlock>
     </>
   );

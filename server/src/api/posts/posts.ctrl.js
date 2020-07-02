@@ -40,7 +40,8 @@ export const write = async (ctx) => {
   const schema = Joi.object().keys({
     // 객체가 다음 필드를 갖고 있음을 검증
     title: Joi.string().required(), // required()가 있으면 필수 항목
-    body: Joi.array().items(Joi.string()).required(),
+    body: Joi.string().required(),
+    canvasData: Joi.string().required(),
     // tags: Joi.array().items(Joi.string()).required(),
   });
 
@@ -49,15 +50,17 @@ export const write = async (ctx) => {
 
   if (result.error) {
     ctx.status = 404; //Bad Request
+    console.log(result.error);
     ctx.body = result.error;
     return;
   }
 
   // const { title, body, tags } = ctx.request.body;
-  const { title, body } = ctx.request.body;
+  const { title, body, canvasData } = ctx.request.body;
   const post = new Post({
     title,
     body,
+    canvasData,
     user: ctx.state.user,
   });
 
@@ -80,11 +83,11 @@ export const list = async (ctx) => {
     return;
   }
 
-  const { tag, name } = ctx.query;
+  const { name, title } = ctx.query;
   //tag,name 값이 유효하면 객체 안에 넣고, 그렇지 않으면 넣지 않음
   const query = {
     ...(name ? { 'user.name': name } : {}),
-    ...(tag ? { tags: tag } : {}),
+    ...(title ? { 'title.title': title } : {}),
   };
 
   try {

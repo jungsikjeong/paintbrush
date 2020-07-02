@@ -1,24 +1,8 @@
 import React, { useEffect } from 'react';
 import BoardToolbar from '../../components/common/BoardToolbar';
 import { useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-const BoardToolbarContainer = ({
-  onModeClick,
-  filling,
-  onRemoveModeClick,
-  history,
-}) => {
-  const { copyCanvas } = useSelector(({ canvas }) => ({
-    copyCanvas: canvas.copyCanvas,
-  }));
-
-  useEffect(() => {
-    if (copyCanvas) {
-      history.push('/write');
-    }
-  }, [history, copyCanvas]);
-
+const BoardToolbarContainer = ({ onModeClick, filling, onRemoveModeClick }) => {
   return (
     <BoardToolbar
       onModeClick={onModeClick}
@@ -28,4 +12,4 @@ const BoardToolbarContainer = ({
   );
 };
 
-export default withRouter(BoardToolbarContainer);
+export default BoardToolbarContainer;
