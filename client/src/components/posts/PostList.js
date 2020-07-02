@@ -11,28 +11,43 @@ const PostListBlock = styled(Responsive)`
   margin-top: 3rem;
 `;
 
-const PostListWrapper = styled.div``;
+const PostListWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, auto));
+`;
 
 const PostItemBlock = styled.div`
-  /* 맨 위 포스트는 padding-top 없음 */
-  &:first-child {
-    padding-top: 0;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  .imgBox {
+    width: 17rem;
+    height: 15rem;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    margin-top: 0.6rem;
+    img {
+      width: 17rem;
+      height: 15rem;
+    }
   }
+`;
+
+const SLink = styled(Link)`
+  font-size: 2rem;
 `;
 
 const StyledButton = styled(Button)``;
 
 const PostItem = ({ post }) => {
-  useEffect(() => {
-    console.log('post:', post);
-  });
   const { title, body, user, canvasData, publishedDate, _id } = post;
+
   return (
     <PostItemBlock>
-      <h2>
-        <Link to={`/@${user.name}/${_id}`}>{title}</Link>
-      </h2>
-      <img src={canvasData} />
+      <SLink to={`/@${user.name}/${_id}`}>{title}</SLink>
+      <div className="imgBox">
+        <img src={canvasData} />
+      </div>
       <SubInfo username={user.name} publishedDate={new Date(publishedDate)} />
     </PostItemBlock>
   );
@@ -50,16 +65,14 @@ const PostList = ({ posts, error, loading, onToggleFalse }) => {
 
   return (
     <PostListBlock onClick={onToggleFalse}>
-      <PostListWrapper>
-        {/* 로딩 중이 아니고, 포스트 배열이 존재 할 때만 보여줌  */}
-        {!loading && posts && (
-          <div>
-            {posts.map((post) => (
-              <PostItem post={post} key={post._id} />
-            ))}
-          </div>
-        )}
-      </PostListWrapper>
+      {/* 로딩 중이 아니고, 포스트 배열이 존재 할 때만 보여줌  */}
+      {!loading && posts && (
+        <PostListWrapper>
+          {posts.map((post) => (
+            <PostItem post={post} key={post._id} />
+          ))}
+        </PostListWrapper>
+      )}
     </PostListBlock>
   );
 };
