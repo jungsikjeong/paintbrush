@@ -9,6 +9,7 @@ import SubInfo from '../common/SubInfo';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 3rem;
+  background: black;
 `;
 
 const PostListWrapper = styled.div`
@@ -22,13 +23,15 @@ const PostItemBlock = styled.div`
 
   .imgBox {
     width: 17rem;
-    height: 15rem;
+
     background-color: white;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     margin-top: 0.6rem;
+    /* box-shadow: 0px 0px 18px #fff; */
     img {
       width: 17rem;
-      height: 15rem;
+      /* 사진에 조명 효과 */
+      box-shadow: 0px 0px 18px #fff;
     }
   }
 `;
@@ -47,8 +50,9 @@ const PostItem = ({ post }) => {
       <SLink to={`/@${user.name}/${_id}`}>{title}</SLink>
       <div className="imgBox">
         <img src={canvasData} />
+        {/* {body} */}
       </div>
-      <SubInfo username={user.name} publishedDate={new Date(publishedDate)} />
+      {/* <SubInfo username={user.name} publishedDate={new Date(publishedDate)} /> */}
     </PostItemBlock>
   );
 };
