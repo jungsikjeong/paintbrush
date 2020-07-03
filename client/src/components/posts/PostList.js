@@ -8,8 +8,7 @@ import Button from '../common/Button';
 import SubInfo from '../common/SubInfo';
 
 const PostListBlock = styled(Responsive)`
-  margin-top: 3rem;
-  background: black;
+  /* background: #212529; */
 `;
 
 const PostListWrapper = styled.div`
@@ -23,15 +22,15 @@ const PostItemBlock = styled.div`
 
   .imgBox {
     width: 17rem;
-
     background-color: white;
-    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     margin-top: 0.6rem;
-    /* box-shadow: 0px 0px 18px #fff; */
+    border-radius: 10px;
     img {
       width: 17rem;
+      border-radius: 10px;
       /* 사진에 조명 효과 */
-      box-shadow: 0px 0px 18px #fff;
+      box-shadow: 0px 0px 18px #212529;
+      overflow: hidden;
     }
   }
 `;
