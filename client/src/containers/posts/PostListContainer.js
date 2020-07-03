@@ -4,6 +4,7 @@ import PostList from '../../components/posts/PostList';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { listPosts } from '../../modules/posts';
+import { toggleFalse } from '../../modules/toggle';
 
 const PostListContainer = ({ location, match }) => {
   const dispatch = useDispatch();
@@ -29,12 +30,11 @@ const PostListContainer = ({ location, match }) => {
       ignoreQueryPrefix: true,
     });
     dispatch(listPosts({ name, page }));
-    console.log(dispatch(listPosts({ name, page })));
   }, [dispatch, location.search]);
 
   return (
     <PostList
-      onClick={onToggleFalse}
+      onToggleFalse={onToggleFalse}
       posts={posts}
       error={error}
       loading={loading}

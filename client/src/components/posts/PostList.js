@@ -7,9 +7,7 @@ import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import SubInfo from '../common/SubInfo';
 
-const PostListBlock = styled(Responsive)`
-  /* background: #212529; */
-`;
+const PostListBlock = styled(Responsive)``;
 
 const PostListWrapper = styled.div`
   display: grid;
@@ -26,11 +24,11 @@ const PostItemBlock = styled.div`
     margin-top: 0.6rem;
     border-radius: 10px;
     img {
+      overflow: hidden;
       width: 17rem;
       border-radius: 10px;
       /* 사진에 조명 효과 */
       box-shadow: 0px 0px 18px #212529;
-      overflow: hidden;
     }
   }
 `;
@@ -49,9 +47,7 @@ const PostItem = ({ post }) => {
       <SLink to={`/@${user.name}/${_id}`}>{title}</SLink>
       <div className="imgBox">
         <img src={canvasData} />
-        {/* {body} */}
       </div>
-      {/* <SubInfo username={user.name} publishedDate={new Date(publishedDate)} /> */}
     </PostItemBlock>
   );
 };
@@ -59,13 +55,8 @@ const PostItem = ({ post }) => {
 const PostList = ({ posts, error, loading, onToggleFalse }) => {
   // 에러 발생시
   if (error) {
-    return (
-      <PostListBlock onClick={onToggleFalse}>
-        에러가 발생하였습니다.
-      </PostListBlock>
-    );
+    return <PostListBlock>에러가 발생하였습니다.</PostListBlock>;
   }
-
   return (
     <PostListBlock onClick={onToggleFalse}>
       {/* 로딩 중이 아니고, 포스트 배열이 존재 할 때만 보여줌  */}
