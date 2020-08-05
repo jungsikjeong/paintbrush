@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Editor from '../../components/write/Editor';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField } from '../../modules/write';
+import { changeField, initialize } from '../../modules/write';
 
 const EditorContainer = ({ onCanvasSave }) => {
   const dispatch = useDispatch();

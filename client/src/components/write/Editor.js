@@ -1,7 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
 import WriteActionButtonsContainer from '../../containers/write/WriteActionButtonsContainer';
 
 const EditorBlock = styled.div`
