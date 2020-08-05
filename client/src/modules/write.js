@@ -9,6 +9,7 @@ import { takeLatest } from 'redux-saga/effects';
 const INITIALIZE = 'write/INITIALIZE'; // 모든 내용 초기화
 const CHANGE_FIELD = 'write/CHANGE_FIELD'; // 특정 key 값 바꾸기
 const CANVAS_DATA = 'write/CANVAS_DATA'; // 캔버스 그림
+const CANVAS_IS_DATA = 'write/CANVAS_IS_DATA'; // 그림 저장눌렀는지,안눌렀는지
 const [
   WRITE_POST,
   WRITE_POST_SUCCESS,
@@ -24,6 +25,7 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
 export const canvasData = createAction(CANVAS_DATA, (canvasData) => ({
   canvasData,
 }));
+export const canvasIsData = createAction(CANVAS_IS_DATA, (isData) => isData);
 export const writePost = createAction(
   WRITE_POST,
   ({ title, body, canvasData }) => ({
@@ -44,6 +46,7 @@ const initialState = {
   title: '',
   body: '',
   canvasData: '',
+  isData: false,
   post: null,
   postError: null,
 };
@@ -59,6 +62,10 @@ const write = handleActions(
     [CANVAS_DATA]: (state, { payload: canvasData }) => ({
       ...state,
       canvasData,
+    }),
+    [CANVAS_IS_DATA]: (state, { payload: isData }) => ({
+      ...state,
+      isData,
     }),
     [WRITE_POST]: (state) => ({
       ...state,

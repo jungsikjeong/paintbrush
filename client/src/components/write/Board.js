@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Colors from '../common/Colors';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { canvasData } from '../../modules/write';
+import { canvasData, canvasIsData } from '../../modules/write';
 import BoardToolbarContainer from '../../containers/write/BoardToolbarContainer';
 import EditorContainer from '../../containers/write/EditorContainer';
 
@@ -148,6 +148,7 @@ const Board = () => {
   const onCanvasSave = () => {
     const imageData = canvas.current.toDataURL();
     dispatch(canvasData(imageData));
+    dispatch(canvasIsData(true));
     console.log('그림저장:', canvasData);
   };
 
