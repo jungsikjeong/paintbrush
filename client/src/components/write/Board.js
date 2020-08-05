@@ -12,6 +12,7 @@ const CanvasBlock = styled.div`
   align-items: center;
   /* justify-content: center; */
   padding: 50px 0px;
+  background-color: #f6f9fc;
 `;
 
 const Canvas = styled.canvas`

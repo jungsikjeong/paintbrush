@@ -1,0 +1,26 @@
+.itemContainer {
+  width: 1100px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.itemContainer img {
+  max-width: 250px;
+  margin-bottom: 10rem;
+  transform-origin: center;
+  transform: perspective(800px) rotateY(20deg);
+  transition: 0.5s;
+  /* 하단에 반사시켜줌 */
+  -webkit-box-reflect: below 1px
+    linear-gradient(transparent, transparent, #0004);
+}
+
+.itemContainer:hover img {
+  opacity: 0.1;
+}
+
+.itemContainer img:hover {
+  transform: perspective(800px) rotateY(20deg);
+  opacity: 1;
+}

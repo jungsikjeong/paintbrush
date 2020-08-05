@@ -18,6 +18,7 @@ const infoFrame = keyframes`
 
 const HeaderBlock = styled.div`
   width: 100%;
+  background: #000;
   /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08); */
 `;
 
@@ -26,6 +27,7 @@ const Wrapper = styled(Responsive)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .logo {
     color: white;
     font-size: 1.125rem;
@@ -82,15 +84,10 @@ const Spacer = styled.div`
   height: 4rem;
 `;
 
-const UserInfo = styled.div`
-  color: white;
-  font-weight: 600;
-  margin-right: 1rem;
-  cursor: pointer;
-`;
 const SubInfoBlock = styled.div`
   display: block;
   position: absolute;
+  z-index: 100;
   top: -59px;
   right: 122px;
   margin: 110px 0px 0px;

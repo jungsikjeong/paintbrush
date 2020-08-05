@@ -8,13 +8,13 @@ import RegisterPage from '../pages/RegisterPage';
 
 const App = () => {
   return (
-    <>
+    <div style={{ background: '#000' }}>
       <Route component={HomePage} path={'/'} exact />
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />
       <Route component={PostListPage} path={['/@:name', '/postList']} exact />
       <Route component={WritePage} path={'/write'} />
-    </>
+    </div>
   );
 };
 

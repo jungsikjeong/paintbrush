@@ -15,7 +15,7 @@ const fadeIn = keyframes` {
 const HomeBlock = styled.div`
   position: absolute;
   z-index: -1;
-  animation: fadeIn 0.5s linear;
+  animation: ${fadeIn} 0.5s linear;
   top: 0;
   left: 0;
   width: 100%;
