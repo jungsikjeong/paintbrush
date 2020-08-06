@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Colors from '../common/Colors';
 import { Link } from 'react-router-dom';
@@ -59,14 +60,15 @@ const Controls = styled.div`
 
 const SLink = styled(Link)``;
 
-const Board = () => {
+const Board = ({ history }) => {
   const [filling, setFilling] = useState(false);
   const [canvasRemove, setCanvasRemove] = useState(false);
   const [color, setColor] = useState('#2c2c2c');
   const dispatch = useDispatch();
 
-  const { canvasCopy } = useSelector(({ write }) => ({
-    canvasCopy: write.canvasCopy,
+  const { post, postError } = useSelector(({ write }) => ({
+    post: write.post,
+    postError: write.postError,
   }));
 
   const CANVAS_SIZE = 700;
@@ -152,33 +154,6 @@ const Board = () => {
     console.log('그림저장:', canvasData);
   };
 
-  // const onCanvasSave = () => {
-  //   const imageData = canvas.current.toDataURL();
-
-  //   const blobBin = atob(imageData.split(',')[1]); // base64 데이터 디코딩
-  //   let array = [];
-
-  //   for (let i = 0; i < blobBin.length; i++) {
-  //     array.push(blobBin.charCodeAt(i));
-  //   }
-  //   const file = new Blob([new Uint8Array(array)], { type: 'image/png' }); // Blob 생성
-  //   const formData = new FormData(); // formData 생성
-  //   formData.append('file', file); // file data 추가
-
-  //   dispatch(canvasData(formData));
-  //   console.log(formData);
-  // };
-
-  // const onCanvasSave = () => {
-  //   const Data = canvas.current.toDataURL();
-  //   const imageObj = new Image();
-
-  //   imageObj.onload = function () {
-  //     context.current.drawImage(imageObj, CANVAS_SIZE, CANVAS_SIZE);
-  //   };
-  //   imageObj.src = Data;
-  // };
-
   useEffect(() => {
     if (canvas.current) {
       ctx.current = canvas.current.getContext('2d');
@@ -188,6 +163,16 @@ const Board = () => {
       ctx.current.lineWidth = 2.5;
     }
   }, []);
+
+  useEffect(() => {
+    if (post) {
+      const { _id, user } = post;
+      history.push(`/@${user.name}/${_id}`);
+    }
+    if (postError) {
+      console.log(postError);
+    }
+  }, [history, post, postError]);
 
   return (
     <>
@@ -227,4 +212,4 @@ const Board = () => {
   );
 };
 
-export default Board;
+export default withRouter(Board);

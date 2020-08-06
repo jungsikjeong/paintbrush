@@ -5,6 +5,7 @@ import PostListPage from '../pages/PostListPage';
 import WritePage from '../pages/WritePage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import PostPage from '../pages/PostPage';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route component={RegisterPage} path="/register" />
       <Route component={PostListPage} path={['/@:name', '/postList']} exact />
       <Route component={WritePage} path={'/write'} />
+      <Route component={PostPage} path={'/@:name/:postId'} />
     </div>
   );
 };
